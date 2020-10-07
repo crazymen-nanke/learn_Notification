@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Notification</string>
+    <string name="notify">发出通知</string>
+    <string name="at_tv">Notification跳转页面</string>
+    <string name="ma_notify_title">应用消息</string>
+    <string name="ma_notify_text">这是通知的详细内容</string>
+</resources>
