@@ -3,19 +3,19 @@
 
 
 
-通知（Notiﬁcation）是Android系统提供的一种具有全局效果的通知功能，可以在系统通知栏中 显示。当APP向系统发出通知时它将先以图标的形式显示在通知栏中。用户可以下拉通知栏查看通 知的详细信息。通知栏和抽屉式通知栏均是由系统控制，用户可以随时查看。 想要了解通知的基本概念我们先来看一下通知的使用方法。通知的创建比较灵活，可以在活动中创 建也可以在广播接收器中创建，当然也可以在我们上一章学习的服务中创建，相比后两种创建方 式，在活动中创建通知的情况比较少见，一般只有当程序进入后台执行时才会需要这种类型的通 知。 首先我们需要通过调用***Context***的***getSystemService()***方法获取***NotiﬁcationManager***来进行通知的 管理，在***getSystemService()***方法中接收一个字符串参数来确定获取系统的哪个服务。通常我们传 入***Context.NOTIFICATION_SERVICE***即可。示例代码如下所示：
+通知（Notiﬁcation）是Android系统提供的一种具有全局效果的通知功能，可以在系统通知栏中 显示。当APP向系统发出通知时它将先以图标的形式显示在通知栏中。用户可以下拉通知栏查看通 知的详细信息。通知栏和抽屉式通知栏均是由系统控制，用户可以随时查看。 想要了解通知的基本概念我们先来看一下通知的使用方法。通知的创建比较灵活，可以在活动中创 建也可以在广播接收器中创建，当然也可以在我们上一章学习的服务中创建，相比后两种创建方 式，在活动中创建通知的情况比较少见，一般只有当程序进入后台执行时才会需要这种类型的通 知。 首先我们需要通过调用***Context***的***getSystemService()*** 方法获取 ***NotiﬁcationManager*** 来进行通知的 管理，在  ***getSystemService()* ** 方法中接收一个字符串参数来确定获取系统的哪个服务。通常我们传 入***Context.NOTIFICATION_SERVICE*** 即可。示例代码如下所示：
 
 ```java
 NotificationManager manager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
 ```
 
-接下来通过***Builder***构造器来创建***Notification***对象，由于Android系统不同版本对通知功能的更新和修改，我们需要使用一个稳定的版本来创建对象，因此我们选用support-v4库中的 ***NotiﬁcationCompat***类的构造器来创建***Notification***对象，代码如下所示：
+接下来通过 ***Builder*** 构造器来创建 ***Notification***对象，由于Android系统不同版本对通知功能的更新和修改，我们需要使用一个稳定的版本来创建对象，因此我们选用support-v4库中的 ***NotiﬁcationCompat***类的构造器来创建 ***Notification*** 对象，代码如下所示：
 
 ```java
 NotificationCompat.Builder build = new NotificationCompat.Builder(context).build();
 ```
 
-由于在Android 8.0系统之后，Google推出了通知渠道的概念。 通知渠道是开发人员在创建通知的时候为每个通知指定的渠道，你也 可以理解成是通知类型。属于同一通知渠道的通知可以进行统一管理。 每一个开发人员在开发App的时候都可以自由的创建通知渠道，但是这些通知渠道的控制权 都是掌握在用户手里的，简单点说就是用户可以更改渠道的重要性，从而决定通知的提示状 态，是弹出提示，震动提示，声音提示等等。 这种操作也很好的提高了用户的体验，不会像之前不管是什么通知都会从顶部弹出提示。 所以接下来我们需要创建***NotiﬁcationChannel***，创建的方法也不难，首先创建 ***NotiﬁcationChannel***对象，指定Channel的id、name和通知的重要程度，代码如下所示：
+由于在Android 8.0系统之后，Google推出了通知渠道的概念。 通知渠道是开发人员在创建通知的时候为每个通知指定的渠道，你也 可以理解成是通知类型。属于同一通知渠道的通知可以进行统一管理。 每一个开发人员在开发App的时候都可以自由的创建通知渠道，但是这些通知渠道的控制权 都是掌握在用户手里的，简单点说就是用户可以更改渠道的重要性，从而决定通知的提示状 态，是弹出提示，震动提示，声音提示等等。 这种操作也很好的提高了用户的体验，不会像之前不管是什么通知都会从顶部弹出提示。 所以接下来我们需要创建***NotiﬁcationChannel*** ，创建的方法也不难，首先创建  ***NotiﬁcationChannel*** 对象，指定Channel的id、name和通知的重要程度，代码如下所示：
 
 ```java
 NotificationChannel channel = new NotificationChannel("channel_id", "channel_name",               NotificationManager.IMPORTANCE_DEFAULT);
@@ -40,7 +40,7 @@ Notification notification  = new NotificationCompat.Builder(context).build();
 
 
 
-通过上述操作我们知识创建了一个空的***NotificationCompat.Builder***对象，并没有什么实际作用，我们可以在最终的***build()***方法之前调用多种方法设置***Notiﬁcation***对象，基本设置如下所示：
+通过上述操作我们知识创建了一个空的 ***NotificationCompat.Builder*** 对象，并没有什么实际作用，我们可以在最终的 ***build()***方法之前调用多种方法设置 ***Notiﬁcation***对象，基本设置如下所示：
 
 ```java
 NotificationCompat.Builder builder = new NotificationCompat.Builder(MainActivity.this)
@@ -52,7 +52,7 @@ NotificationCompat.Builder builder = new NotificationCompat.Builder(MainActivity
                     .setContentText(getString(R.string.ma_notify_text));
 ```
 
-上述代码中调用了5个设置的方法分别用来设置通知点击后自动消失，通知的时间显示，通知的大图标、小图标、通知内容标题以及显示内容。以上工作全部完成后，就可以通过调用***NotiﬁcationManager***的***notify()***方法让通知显示出 来。***notify()***方法中接收两个参数，第一个参数表示通知所指定的id，第二个参数表示***Notiﬁcation***对象。
+上述代码中调用了5个设置的方法分别用来设置通知点击后自动消失，通知的时间显示，通知的大图标、小图标、通知内容标题以及显示内容。以上工作全部完成后，就可以通过调用***NotiﬁcationManager***的***notify()***方法让通知显示出 来。***notify()*** 方法中接收两个参数，第一个参数表示通知所指定的id，第二个参数表示 ***Notiﬁcation***对象。
 
 很多时候需要我们点击通知后跳转到另外一个活动中去。此时活动的跳转不仅仅需要***Intent***进行，还需要使用***PendingIntent***。代码如下：
 
